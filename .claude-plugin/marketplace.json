@@ -11,7 +11,7 @@
     {
       "name": "acs-bridge",
       "description": "Connect Claude to Steward ACS for agent coordination",
-      "source": ".",
+      "source": "./plugins/acs-bridge",
       "category": "infrastructure"
     }
   ]
