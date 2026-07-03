@@ -1,21 +1,60 @@
 # MCP ACS Bridge
 
-Bridge to connect Claude (web/desktop) to a remote Steward ACS server.
+Connect Claude (web, desktop, Cowork) and ChatGPT to a remote Steward ACS server.
 
-## Install via GitHub (Claude plugin marketplace)
+ACS already exposes a remote MCP endpoint. This plugin points Claude at that endpoint directly — no local Node process required for web or desktop.
 
-In Claude → Settings → Plugins → Add marketplace, use:
+## Claude (web, Cowork, Desktop)
 
-**Owner/repo**: `NaharEmet/steward_mcp_bridge`
+### Plugin marketplace
 
-Or the full URL: `https://github.com/NaharEmet/steward_mcp_bridge`
+1. Claude → **Settings → Plugins → Add marketplace**
+2. Enter: `NaharEmet/steward_mcp_bridge`
+3. Install **acs-bridge**
+4. Set plugin environment variables:
+   - `MCP_API_KEY` — your ACS developer key (`acs_dev_...`, required)
+   - `ACS_URL` — optional, defaults to `https://prod.stewardacs.xyz`
 
-Then install the `acs-bridge` plugin and set environment variables:
+### Custom connector (alternative)
 
-- `MCP_API_KEY` — your ACS API key (required)
-- `ACS_URL` — ACS server URL (optional, defaults to `https://prod.stewardacs.xyz`)
+Claude → **Customize → Connectors → Add custom connector**
 
-## Local Usage
+- **URL**: `https://prod.stewardacs.xyz/mcp/sse`
+- **Auth**: OAuth (required by Claude web UI today — not yet supported by ACS)
+
+Until ACS adds OAuth, use the plugin marketplace path above (supports `X-Api-Key` via plugin env vars).
+
+## ChatGPT
+
+ChatGPT custom connectors require OAuth for production use. For personal testing in **Developer mode**:
+
+1. Enable Developer mode in ChatGPT settings
+2. **Settings → Apps & Connectors → Create**
+3. Set **Authentication** to **None**
+4. **URL** (include your key):  
+   `https://prod.stewardacs.xyz/mcp/sse?api_key=acs_dev_YOUR_KEY`
+
+Requires `MCP_QUERY_KEY_AUTH=true` on the ACS server. Keys in URLs are less secure — use only for testing.
+
+## Claude Code / Desktop (manual MCP)
+
+```bash
+claude mcp add --transport sse acs \
+  https://prod.stewardacs.xyz/mcp/sse \
+  --header "X-Api-Key: acs_dev_YOUR_KEY"
+```
+
+Bearer auth also works:
+
+```bash
+claude mcp add --transport sse acs \
+  https://prod.stewardacs.xyz/mcp/sse \
+  --header "Authorization: Bearer acs_dev_YOUR_KEY"
+```
+
+## Local stdio bridge (legacy)
+
+For environments that only support stdio MCP (some local tools):
 
 ```bash
 MCP_API_KEY=acs_dev_your_key node index.js
