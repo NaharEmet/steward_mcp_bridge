@@ -1,9 +1,0 @@
-{
-  "steward-bridge": {
-    "type": "sse",
-    "url": "${ACS_URL:-https://prod.stewardacs.xyz}/mcp/sse",
-    "headers": {
-      "X-Api-Key": "${MCP_API_KEY}"
-    }
-  }
-}
