@@ -2,12 +2,18 @@
 
 Bridge to connect Claude (web/desktop) to a remote Steward ACS server.
 
-## Install via GitHub
+## Install via GitHub (Claude plugin marketplace)
 
-In Claude settings → MCP Servers, add:
+In Claude → Settings → Plugins → Add marketplace, use:
 
-**URL**: `https://github.com/NaharEmet/steward_mcp_bridge`
-**Environment**: `MCP_API_KEY=acs_dev_<your-key>`
+**Owner/repo**: `NaharEmet/steward_mcp_bridge`
+
+Or the full URL: `https://github.com/NaharEmet/steward_mcp_bridge`
+
+Then install the `acs-bridge` plugin and set environment variables:
+
+- `MCP_API_KEY` — your ACS API key (required)
+- `ACS_URL` — ACS server URL (optional, defaults to `https://prod.stewardacs.xyz`)
 
 ## Local Usage
 

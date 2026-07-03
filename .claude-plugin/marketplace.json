@@ -12,7 +12,14 @@
       "name": "acs-bridge",
       "description": "Connect Claude to Steward ACS for agent coordination",
       "source": "./plugins/acs-bridge",
-      "category": "infrastructure"
+      "category": "infrastructure",
+      "env_vars": [
+        {
+          "name": "MCP_API_KEY",
+          "description": "Your Steward ACS API key",
+          "required": true
+        }
+      ]
     }
   ]
 }
