@@ -1,0 +1,14 @@
+{
+  "name": "steward-acs-bridge",
+  "display_name": "Steward ACS Bridge",
+  "description": "Connect Claude to Steward ACS — agent coordination with task management, knowledge memory, file locking, and more.",
+  "runtime": "node",
+  "entrypoint": "index.js",
+  "env_vars": [
+    {
+      "name": "MCP_API_KEY",
+      "description": "Your Steward ACS API key (get one from your ACS admin or create via mix acs.keys.generate)",
+      "required": true
+    }
+  ]
+}
