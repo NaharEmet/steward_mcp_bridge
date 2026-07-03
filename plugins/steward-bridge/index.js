@@ -16,10 +16,10 @@ if (!API_KEY) {
   process.exit(1);
 }
 
-process.stderr.write(`[acs-bridge] Connecting to ${ACS_URL}...\n`);
+process.stderr.write(`[steward-bridge] Connecting to ${ACS_URL}...\n`);
 
 const acsClient = new Client(
-  { name: "acs-bridge", version: "1.0.0" },
+  { name: "steward-bridge", version: "1.2.0" },
   { capabilities: {} }
 );
 
@@ -34,10 +34,10 @@ const sseTransport = new SSEClientTransport(
 await acsClient.connect(sseTransport);
 
 const { tools } = await acsClient.listTools();
-process.stderr.write(`[acs-bridge] Loaded ${tools.length} tools from ACS\n`);
+process.stderr.write(`[steward-bridge] Loaded ${tools.length} tools from ACS\n`);
 
 const bridge = new Server(
-  { name: "acs-bridge", version: "1.0.0" },
+  { name: "steward-bridge", version: "1.2.0" },
   { capabilities: { tools: {} } }
 );
 

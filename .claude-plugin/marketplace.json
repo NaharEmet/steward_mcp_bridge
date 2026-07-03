@@ -1,17 +1,18 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
-  "name": "steward-acs-bridge",
-  "version": "1.1.0",
-  "description": "Bridge to connect Claude to Steward ACS — task management, knowledge memory, file locking, and error tracking for AI agents.",
+  "name": "steward-bridge",
+  "version": "1.2.0",
+  "description": "Steward Bridge — connect Claude to Steward ACS for task management, knowledge memory, file locking, and error tracking.",
   "owner": {
     "name": "Nahar Mete",
     "email": "nahar@stewardacs.xyz"
   },
   "plugins": [
     {
-      "name": "acs-bridge",
+      "name": "steward-bridge",
+      "displayName": "Steward Bridge",
       "description": "Connect Claude to Steward ACS for agent coordination",
-      "source": "./plugins/acs-bridge",
+      "source": "./plugins/steward-bridge",
       "category": "infrastructure",
       "env_vars": [
         {

@@ -1,4 +1,4 @@
-# MCP ACS Bridge
+# Steward Bridge
 
 Connect Claude (web, desktop, Cowork) and ChatGPT to a remote Steward ACS server.
 
@@ -10,7 +10,7 @@ ACS already exposes a remote MCP endpoint. This plugin points Claude at that end
 
 1. Claude → **Settings → Plugins → Add marketplace**
 2. Enter: `NaharEmet/steward_mcp_bridge`
-3. Install **acs-bridge**
+3. Install **Steward Bridge** (`steward-bridge`)
 4. Set plugin environment variables:
    - `MCP_API_KEY` — your ACS developer key (`acs_dev_...`, required)
    - `ACS_URL` — optional, defaults to `https://prod.stewardacs.xyz`
@@ -39,7 +39,7 @@ Requires `MCP_QUERY_KEY_AUTH=true` on the ACS server. Keys in URLs are less secu
 ## Claude Code / Desktop (manual MCP)
 
 ```bash
-claude mcp add --transport sse acs \
+claude mcp add --transport sse steward-bridge \
   https://prod.stewardacs.xyz/mcp/sse \
   --header "X-Api-Key: acs_dev_YOUR_KEY"
 ```
@@ -47,7 +47,7 @@ claude mcp add --transport sse acs \
 Bearer auth also works:
 
 ```bash
-claude mcp add --transport sse acs \
+claude mcp add --transport sse steward-bridge \
   https://prod.stewardacs.xyz/mcp/sse \
   --header "Authorization: Bearer acs_dev_YOUR_KEY"
 ```

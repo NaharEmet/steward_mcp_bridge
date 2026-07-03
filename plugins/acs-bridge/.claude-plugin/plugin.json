@@ -1,5 +1,0 @@
-{
-  "name": "acs-bridge",
-  "description": "Connect Claude to Steward ACS for agent coordination — tasks, memory, file locks, and error tracking",
-  "version": "1.1.0"
-}

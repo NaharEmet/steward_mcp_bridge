@@ -1,4 +1,4 @@
-# Steward ACS Bridge
+# Steward Bridge
 
 Bridge that connects Claude to a remote Steward ACS server. Provides tools for:
 
