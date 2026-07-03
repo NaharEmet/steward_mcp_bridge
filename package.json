@@ -1,0 +1,13 @@
+{
+  "name": "mcp-acs-bridge",
+  "version": "1.0.0",
+  "description": "MCP bridge to connect Claude to remote Steward ACS",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  }
+}
