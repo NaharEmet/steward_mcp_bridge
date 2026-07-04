@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "steward-bridge": {
+      "type": "sse",
+      "url": "${user_config.acs_url}/mcp/sse?api_key=${user_config.api_key}",
+      "headers": {
+        "X-Api-Key": "${user_config.api_key}"
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
   "name": "steward-bridge",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Steward Bridge — connect Claude to Steward ACS for task management, knowledge memory, file locking, and error tracking.",
   "owner": {
     "name": "Nahar Mete",
@@ -14,19 +14,7 @@
       "description": "Connect Claude to Steward ACS for agent coordination",
       "source": "./plugins/steward-bridge",
       "category": "infrastructure",
-      "version": "1.4.0",
-      "env_vars": [
-        {
-          "name": "MCP_API_KEY",
-          "description": "Your Steward ACS developer API key (acs_dev_...)",
-          "required": true
-        },
-        {
-          "name": "ACS_URL",
-          "description": "ACS server URL (e.g. https://prod.stewardacs.xyz)",
-          "required": true
-        }
-      ]
+      "version": "1.5.0"
     }
   ]
 }

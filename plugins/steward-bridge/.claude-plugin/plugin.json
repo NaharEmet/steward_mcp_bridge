@@ -1,9 +1,18 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "steward-bridge",
-  "description": "Steward Bridge — connect Claude to Steward ACS for tasks, memory, file locks, and error tracking",
-  "version": "1.4.0",
+  "displayName": "Steward Bridge",
+  "description": "Connect Claude to Steward ACS for tasks, memory, file locks, and error tracking",
+  "version": "1.5.0",
+  "author": {
+    "name": "Nahar Mete",
+    "email": "nahar@stewardacs.xyz"
+  },
+  "homepage": "https://github.com/NaharEmet/steward_mcp_bridge",
+  "repository": "https://github.com/NaharEmet/steward_mcp_bridge",
+  "defaultEnabled": false,
   "userConfig": {
-    "mcp_api_key": {
+    "api_key": {
       "type": "string",
       "title": "Steward ACS API Key",
       "description": "Your developer API key (starts with acs_dev_)",
@@ -13,19 +22,11 @@
     "acs_url": {
       "type": "string",
       "title": "ACS Server URL",
-      "description": "Steward ACS base URL",
-      "required": true,
+      "description": "Steward ACS base URL. Leave blank to use production.",
+      "required": false,
       "sensitive": false,
       "default": "https://prod.stewardacs.xyz"
     }
   },
-  "mcpServers": {
-    "steward-bridge": {
-      "type": "sse",
-      "url": "${user_config.acs_url}/mcp/sse?api_key=${user_config.mcp_api_key}",
-      "headers": {
-        "X-Api-Key": "${user_config.mcp_api_key}"
-      }
-    }
-  }
+  "mcpServers": "./.mcp.json"
 }

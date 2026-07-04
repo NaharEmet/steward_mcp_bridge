@@ -4,64 +4,70 @@ Connect Claude to Steward ACS.
 
 ## Important: Plugins vs Custom Connectors
 
-Claude has **two different** integration paths:
-
 | Path | Where | API key support |
 |------|--------|-----------------|
-| **Plugins** | Settings → **Plugins** | ✅ Configure options prompt for key + URL |
-| **Custom Connectors** | Settings → **Connectors** | ❌ OAuth only — **no field to paste a key** |
+| **Plugins** | Settings → **Capabilities → Plugins** | Configure dialog (`userConfig`) |
+| **Custom Connectors** | Settings → **Connectors** | OAuth only — no key field |
 
-If you need to enter an `acs_dev_...` key, use **Plugins**, not Custom Connectors.
-
----
-
-## Option A — Plugin marketplace (recommended)
-
-1. **Settings → Plugins → Add marketplace** → `NaharEmet/steward_mcp_bridge`
-2. Install **Steward Bridge**
-3. **Settings → Plugins → Steward Bridge → Configure** (or **Configure options** from the plugin menu)
-   - **ACS Server URL:** `https://prod.stewardacs.xyz`
-   - **Steward ACS API Key:** your `acs_dev_...` key
-4. Enable in chat: **+ → Plugins** → toggle Steward Bridge
-
-Includes the **steward-agent** skill and remote SSE MCP tools.
+Use **Plugins** for `acs_dev_...` keys.
 
 ---
 
-## Option B — Custom Connector (key in URL)
+## Claude web (claude.ai)
 
-Use this only if you prefer Connectors over Plugins. Claude cannot send headers, so the key goes in the URL.
+1. **Settings → Capabilities → Plugins**
+2. **Add marketplace** → `NaharEmet/steward_mcp_bridge`
+3. **Sync**, then install **Steward Bridge** (v1.5.0+)
+4. During install you should be prompted for **Steward ACS API Key**
+   - If not prompted: click **Steward Bridge → Configure** (or the gear icon)
+5. Enter your `acs_dev_...` key. **ACS Server URL** is optional (defaults to prod).
+6. In a chat: **+ → Plugins** → enable **Steward Bridge**
 
-**Requires** `MCP_QUERY_KEY_AUTH=true` on the ACS server (enabled by default in `docker-compose.cloudflare.yml`).
+If **Configure does not open** (known Claude web bug):
 
-1. **Settings → Connectors → + → Add custom connector**
-2. **URL** (replace with your real key):
-
-   ```
-   https://prod.stewardacs.xyz/mcp/sse?api_key=acs_dev_YOUR_KEY_HERE
-   ```
-
-3. **Authentication:** None  
-   (Do not use OAuth — ACS does not implement OAuth yet)
-
-The MCP endpoint path is **`/mcp/sse`**, not the bare domain.
+- Remove plugin → re-sync marketplace → reinstall
+- Or use the Custom Connector workaround below
 
 ---
 
-## Stack
+## Claude Desktop
 
-Steward ACS is **Elixir/Phoenix**. MCP routes:
+Same as web: **Settings → Capabilities → Plugins → Steward Bridge → Configure**.
 
-- `GET /mcp/sse` — SSE stream (Claude connects here)
-- `POST /mcp/messages?session_id=...` — JSON-RPC (used automatically after SSE connect)
-- `GET /mcp/health` — health check (no auth)
-
-Auth accepts `X-Api-Key`, `Authorization: Bearer acs_dev_...`, or `?api_key=` when query auth is enabled.
+---
 
 ## Claude Code (CLI)
+
+Plugin Configure also works via `/plugin → Installed → steward-bridge → Configure options`.
+
+Or add MCP manually (always works):
 
 ```bash
 claude mcp add --transport sse steward-bridge \
   https://prod.stewardacs.xyz/mcp/sse \
   --header "X-Api-Key: acs_dev_YOUR_KEY"
 ```
+
+Verify with `/mcp` in a session.
+
+---
+
+## Custom Connector fallback (web only)
+
+If plugin Configure is broken, use **Settings → Connectors**:
+
+```
+https://prod.stewardacs.xyz/mcp/sse?api_key=acs_dev_YOUR_KEY
+```
+
+Authentication: **None**. Requires `MCP_QUERY_KEY_AUTH=true` on ACS.
+
+---
+
+## MCP endpoints
+
+- `GET /mcp/sse` — SSE stream
+- `POST /mcp/messages?session_id=...` — JSON-RPC
+- `GET /mcp/health` — health check (no auth)
+
+Auth: `X-Api-Key`, `Authorization: Bearer`, or `?api_key=` when query auth is enabled.

@@ -8,10 +8,10 @@ Steward Bridge connects you to **Steward ACS** via MCP tools. These are not slas
 
 ## Configure first
 
-If tools are missing or auth fails, ask the user to open **Settings → Plugins → Steward Bridge → Configure** and set:
+If tools are missing or auth fails, ask the user to open **Settings → Capabilities → Plugins → Steward Bridge → Configure** and set:
 
-- **ACS Server URL** — e.g. `https://prod.stewardacs.xyz`
-- **Steward ACS API Key** — their `acs_dev_...` key
+- **Steward ACS API Key** — their `acs_dev_...` key (required)
+- **ACS Server URL** — optional; defaults to `https://prod.stewardacs.xyz`
 
 Then call `connection_diagnostic` to verify the server is reachable.
 
